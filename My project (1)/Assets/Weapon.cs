@@ -31,6 +31,10 @@ public class Weapon : MonoBehaviour
         if(Physics.Raycast(ray,out hit))
         {
             Debug.Log("пиу"+ hit.collider);
+            if (hit.collider.tag == "Player")
+        {
+            hit.collider.GetComponent<HpController>().ChangeHP(-damage);
+        }
         }
     }
 }
