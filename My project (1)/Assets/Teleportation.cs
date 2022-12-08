@@ -17,7 +17,7 @@ public class Teleportation : MonoBehaviour
         isCooldown = false;
     }
     
-    void Update()
+    void LateUpdate()
     {
         
         Ray ray= new Ray(transform.position, transform.forward);
@@ -30,20 +30,23 @@ public class Teleportation : MonoBehaviour
             {
                 Pointer.position = hit.point;
             }
+        else{
+            Pointer.position = player.position;
+        }
         if(isCooldown){
-        if( Input.GetKeyDown( KeyCode.Mouse1 ))
-        {
+            if( Input.GetKeyDown( KeyCode.Mouse1 ))
+            {
             teleportPoin.SetActive(true);
             
-        }
-        if( Input.GetKeyUp( KeyCode.Mouse1 ))
+            }
+            if( Input.GetKeyUp( KeyCode.Mouse1 ))
             {
                 player.position = Pointer.position;
                 teleportPoin.SetActive(false);
                 cooldown = MaxCooldown;
                 isCooldown = false;
             }
-        }
+            }
         if(cooldown <= 0f){
             isCooldown = true;
         }
