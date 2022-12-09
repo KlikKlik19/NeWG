@@ -6,6 +6,8 @@ public class Weapon : MonoBehaviour
 {
     public float damage;
     public Camera cam;
+    public float MaxSpeedFire;
+    float speedFire;
 
 
     // Start is called before the first frame update
@@ -18,10 +20,13 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         
-        if(Input.GetKeyDown( KeyCode.Mouse0 ))
+        if(Input.GetKey( KeyCode.Mouse0 )&& speedFire <= 0)
         {
-        Shoot();
-        
+            Shoot();
+            speedFire = MaxSpeedFire;
+        }
+        if (speedFire>0){
+            speedFire -= Time.deltaTime;
         }
     }
     void Shoot()
@@ -32,9 +37,9 @@ public class Weapon : MonoBehaviour
         {
             Debug.Log("пиу"+ hit.collider);
             if (hit.collider.tag == "Player")
-        {
-            hit.collider.GetComponent<HpController>().ChangeHP(-damage);
-        }
+            {
+                hit.collider.GetComponent<HpController>().ChangeHP(-damage);
+            }
         }
     }
 }
